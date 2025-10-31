@@ -1,0 +1,725 @@
+<!DOCTYP html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilos y Encantos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fef6f9 0%, #fdf4f8 50%, #f9f3f7 100%);
+            color: #5a4a56;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(221, 160, 221, 0.2)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="%23fef6f9"/><path d="M20 20l5 5-5 5-5-5z M40 20l5 5-5 5-5-5z M60 20l5 5-5 5-5-5z M20 40l5 5-5 5-5-5z M40 40l5 5-5 5-5-5z M60 40l5 5-5 5-5-5z M20 60l5 5-5 5-5-5z M40 60l5 5-5 5-5-5z M60 60l5 5-5 5-5-5z" fill="%23f9e6f2" opacity="0.3"/></svg>');
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #d4748e;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(212, 116, 142, 0.1);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #b5838d;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .hero .welcome {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #7a6a76;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        /* Menu Buttons */
+        .menu-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            background: linear-gradient(135deg, #f8d7da, #e8c5d1);
+            color: #7a4a5e;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 116, 142, 0.2);
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 116, 142, 0.3);
+            background: linear-gradient(135deg, #fce4e7, #f2d5dd);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section.hidden {
+            display: none;
+        }
+
+        .section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #d4748e;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Clases Cards */
+        .clases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .clase-card {
+            background: linear-gradient(135deg, #fef9fb, #fef6f9);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid #f8d7da;
+            transition: all 0.3s ease;
+        }
+
+        .clase-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(212, 116, 142, 0.15);
+        }
+
+        .clase-card h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #c26680;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .info-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            color: #d4748e;
+            font-size: 1.3rem;
+        }
+
+        .precio-box {
+            background: linear-gradient(135deg, #f8d7da, #e8c5d1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .precio-box h4 {
+            color: #7a4a5e;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .precio-box ul {
+            list-style: none;
+        }
+
+        .precio-box li {
+            padding: 0.7rem 0;
+            color: #5a4a56;
+            border-bottom: 1px solid rgba(122, 74, 94, 0.2);
+        }
+
+        .precio-box li:last-child {
+            border-bottom: none;
+        }
+
+        /* Tipos de Costura Gallery */
+        .costura-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .costura-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #f8d7da;
+        }
+
+        .costura-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 116, 142, 0.2);
+        }
+
+        .costura-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #fef6f9, #f9f3f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #d4748e;
+        }
+
+        .costura-content {
+            padding: 1.5rem;
+        }
+
+        .costura-content h3 {
+            color: #c26680;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .costura-content p {
+            color: #7a6a76;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .precio-tag {
+            font-weight: 600;
+            color: #d4748e;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-saber-mas {
+            background: linear-gradient(135deg, #f8d7da, #e8c5d1);
+            color: #7a4a5e;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-saber-mas:hover {
+            background: linear-gradient(135deg, #fce4e7, #f2d5dd);
+            transform: translateY(-2px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 3rem;
+            border-radius: 25px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #d4748e;
+            background: none;
+            border: none;
+        }
+
+        .modal h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #d4748e;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .modal-img {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #fef6f9, #f9f3f7);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #d4748e;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #f8d7da, #e8c5d1);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #7a4a5e;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            color: #7a4a5e;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #d4748e;
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .menu-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-btn {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .modal-images {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Hilos y Encantos</h1>
+        <p class="subtitle">✨ Donde cada puntada guarda un encanto ✨</p>
+        <p class="welcome">Bienvenidos a nuestro espacio creativo, donde el arte del bordado cobra vida con cada hilo y cada puntada llena de amor.</p>
+    </div>
+
+    <!-- Menu Principal -->
+    <div class="menu-container">
+        <button class="menu-btn" onclick="showSection('origen')">Nuestro origen y visión</button>
+        <button class="menu-btn" onclick="showSection('tipos')">Tipos de costura</button>
+        <button class="menu-btn" onclick="scrollToFooter()">Contacto / Redes sociales</button>
+    </div>
+
+    <div class="container">
+        <!-- Section: Origen y Visión -->
+        <div id="origen" class="section hidden">
+            <h2>🌸 Nuestro Origen y Visión</h2>
+            <p style="text-align: center; font-size: 1.1rem; line-height: 1.8; color: #7a6a76;">
+                Hilos y Encantos nació del amor por el arte textil y el deseo de compartir esta bella tradición con nuevas generaciones. 
+                Comenzamos como un pequeño taller familiar donde cada puntada contaba una historia, y hoy nos hemos convertido en un espacio 
+                donde la creatividad florece y las manos aprenden a crear magia con hilos de colores.
+                <br><br>
+                Nuestra misión es enseñar el bordado no solo como una técnica, sino como una forma de expresión artística que conecta 
+                el pasado con el presente. Creemos que cada persona tiene un artista interior esperando despertar, y estamos aquí para 
+                guiarlos en ese hermoso camino de descubrimiento creativo.
+            </p>
+        </div>
+
+        <!-- Section: Tipos de Costura -->
+        <div id="tipos" class="section hidden">
+            <h2>🧵 Tipos de Costura</h2>
+            <div class="costura-grid">
+                <div class="costura-card">
+                    <div class="costura-img">✖️</div>
+                    <div class="costura-content">
+                        <h3>Punto Cruz</h3>
+                        <p>Técnica clásica que forma pequeñas cruces para crear patrones y diseños detallados.</p>
+                        <div class="precio-tag">💰 Desde $50</div>
+                        <button class="btn-saber-mas" onclick="openModal('Punto Cruz')">Para saber más</button>
+                    </div>
+                </div>
+
+                <div class="costura-card">
+                    <div class="costura-img">🌊</div>
+                    <div class="costura-content">
+                        <h3>Festón</h3>
+                        <p>Puntada decorativa que crea un borde ondulado perfecto para acabados elegantes.</p>
+                        <div class="precio-tag">💰 Desde $60</div>
+                        <button class="btn-saber-mas" onclick="openModal('Festón')">Para saber más</button>
+                    </div>
+                </div>
+
+                <div class="costura-card">
+                    <div class="costura-img">🔗</div>
+                    <div class="costura-content">
+                        <h3>Cadena</h3>
+                        <p>Puntada que forma eslabones entrelazados, ideal para contornos y líneas decorativas.</p>
+                        <div class="precio-tag">💰 Desde $55</div>
+                        <button class="btn-saber-mas" onclick="openModal('Cadena')">Para saber más</button>
+                    </div>
+                </div>
+
+                <div class="costura-card">
+                    <div class="costura-img">🎨</div>
+                    <div class="costura-content">
+                        <h3>Relleno</h3>
+                        <p>Técnica para rellenar áreas grandes con puntadas paralelas, creando texturas uniformes.</p>
+                        <div class="precio-tag">💰 Desde $70</div>
+                        <button class="btn-saber-mas" onclick="openModal('Relleno')">Para saber más</button>
+                    </div>
+                </div>
+
+                <div class="costura-card">
+                    <div class="costura-img">🌿</div>
+                    <div class="costura-content">
+                        <h3>Tallo</h3>
+                        <p>Puntada lineal perfecta para crear contornos suaves y tallos de flores delicadas.</p>
+                        <div class="precio-tag">💰 Desde $50</div>
+                        <button class="btn-saber-mas" onclick="openModal('Tallo')">Para saber más</button>
+                    </div>
+                </div>
+
+                <div class="costura-card">
+                    <div class="costura-img">⭐</div>
+                    <div class="costura-content">
+                        <h3>Pespunte</h3>
+                        <p>Puntada básica y fuerte que crea líneas continuas, esencial para cualquier bordador.</p>
+                        <div class="precio-tag">💰 Desde $45</div>
+                        <button class="btn-saber-mas" onclick="openModal('Pespunte')">Para saber más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: ¿Qué hacemos? -->
+        <div class="section">
+            <h2>🧵 ¿Qué hacemos?</h2>
+            <p style="text-align: center; font-size: 1.1rem; color: #7a6a76;">
+                En Hilos y Encantos enseñamos todo tipo de bordados y figuras, desde los más sencillos hasta los más detallados, 
+                con clases divertidas y llenas de creatividad.
+            </p>
+        </div>
+
+        <!-- Section: Clases -->
+        <div class="section">
+            <h2>📚 Nuestras Clases</h2>
+            <div class="clases-grid">
+                <!-- Clase Niños -->
+                <div class="clase-card">
+                    <h3>👧 Clases para Niños</h3>
+                    <p style="text-align: center; color: #b5838d; margin-bottom: 1.5rem;">(Mayores de 7 años)</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div><strong>Días:</strong> Lunes, Miércoles y Viernes</div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div><strong>Horario:</strong> 4:00 p.m. - 6:00 p.m.</div>
+                    </div>
+
+                    <div class="precio-box">
+                        <h4>💰 Costos:</h4>
+                        <ul>
+                            <li><strong>$30</strong> por día</li>
+                            <li><strong>$80</strong> suscripción semanal</li>
+                            <li><strong>$310</strong> suscripción mensual</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Clase Adultos -->
+                <div class="clase-card">
+                    <h3>👩‍🎨 Clases para Adultos</h3>
+                    <p style="text-align: center; color: #b5838d; margin-bottom: 1.5rem;">(Con algo de experiencia)</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div><strong>Días:</strong> Martes, Jueves y Sábado</div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div><strong>Horario:</strong> 4:00 p.m. - 6:00 p.m.</div>
+                    </div>
+
+                    <div class="precio-box">
+                        <h4>🎨 Tipos de suscripción:</h4>
+                        <ul>
+                            <li><strong>1️⃣ Material propio:</strong><br>El alumno trae sus materiales y se queda con sus bordados terminados.</li>
+                            <li><strong>2️⃣ Material incluido:</strong><br>El taller proporciona todos los materiales. Los bordados terminados se quedan en el taller para exhibición y venta (el dinero se usa para comprar más materiales).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body"></div>
+            <div class="modal-images">
+                <div class="modal-img">🧵</div>
+                <div class="modal-img">✨</div>
+                <div class="modal-img">🎨</div>
+                <div class="modal-img">🌸</div>
+                <div class="modal-img">💐</div>
+                <div class="modal-img">🪡</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <p class="footer-message">🪡 ¡Aprende, crea y deja volar tu imaginación en Hilos y Encantos! 💕</p>
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        const costuraInfo = {
+            'Punto Cruz': {
+                description: 'El punto cruz es una de las técnicas de bordado más populares y versátiles. Consiste en crear pequeñas cruces (X) que, al combinarse, forman patrones, diseños y hasta imágenes complejas. Es perfecto para principiantes y permite crear desde diseños simples hasta obras de arte detalladas.',
+                details: [
+                    '✨ Ideal para principiantes',
+                    '🎨 Permite crear diseños geométricos y figurativos',
+                    '📐 Requiere tela de trama regular (como Aida)',
+                    '🌈 Perfecta para letras, números y patrones',
+                    '⏱️ Tiempo de aprendizaje: 2-3 sesiones'
+                ]
+            },
+            'Festón': {
+                description: 'El festón es una puntada decorativa que crea un borde ondulado elegante. Es perfecta para acabados de bordes, aplicaciones y decoración de prendas. Esta técnica aporta un toque artesanal y delicado a cualquier proyecto.',
+                details: [
+                    '🌊 Crea bordes elegantes y decorativos',
+                    '👗 Ideal para acabados de prendas',
+                    '🎀 Perfecta para aplicaciones y parches',
+                    '💫 Aporta un look artesanal profesional',
+                    '⏱️ Tiempo de aprendizaje: 3-4 sesiones'
+                ]
+            },
+            'Cadena': {
+                description: 'La puntada de cadena forma eslabones entrelazados que crean líneas fluidas y decorativas. Es excelente para contornos, líneas curvas y diseños lineales que requieren grosor y presencia.',
+                details: [
+                    '🔗 Forma eslabones entrelazados',
+                    '🌀 Perfecta para líneas curvas',
+                    '✍️ Ideal para contornos y letras',
+                    '🎨 Gran versatilidad decorativa',
+                    '⏱️ Tiempo de aprendizaje: 2-3 sesiones'
+                ]
+            },
+            'Relleno': {
+                description: 'La técnica de relleno permite cubrir áreas grandes con puntadas paralelas, creando superficies uniformes y texturas ricas. Es fundamental para dar volumen y color a los diseños de bordado.',
+                details: [
+                    '🎨 Cubre áreas grandes uniformemente',
+                    '🌈 Ideal para aplicar color sólido',
+                    '✨ Crea texturas y efectos visuales',
+                    '💪 Requiere práctica para lograr uniformidad',
+                    '⏱️ Tiempo de aprendizaje: 4-5 sesiones'
+                ]
+            },
+            'Tallo': {
+                description: 'La puntada de tallo crea líneas suaves y continuas, perfecta para contornos delicados, tallos de flores y elementos curvos. Es una de las puntadas más elegantes y versátiles del bordado.',
+                details: [
+                    '🌿 Líneas suaves y continuas',
+                    '🌸 Perfecta para tallos y contornos florales',
+                    '🎭 Versátil para diseños curvos',
+                    '💫 Acabado elegante y profesional',
+                    '⏱️ Tiempo de aprendizaje: 2-3 sesiones'
+                ]
+            },
+            'Pespunte': {
+                description: 'El pespunte es una puntada básica y fundamental que crea líneas continuas y fuertes. Es esencial para cualquier bordador y sirve como base para muchas otras técnicas más complejas.',
+                details: [
+                    '⭐ Puntada básica esencial',
+                    '💪 Crea líneas fuertes y definidas',
+                    '📏 Perfecta para contornos precisos',
+                    '🎯 Base para técnicas avanzadas',
+                    '⏱️ Tiempo de aprendizaje: 1-2 sesiones'
+                ]
+            }
+        };
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.remove('hidden');
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        function scrollToFooter() {
+            document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            
+            const info = costuraInfo[type];
+            
+            title.textContent = type;
+            body.innerHTML = `
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #7a6a76;">
+                    ${info.description}
+                </p>
+                <h3 style="color: #d4748e; margin-bottom: 1rem;">Detalles de la técnica:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    ${info.details.map(detail => <li style="padding: 0.5rem 0; color: #7a6a76;">${detail}</li>).join('')}
+                </ul>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('modal');
+            if (!event || event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
